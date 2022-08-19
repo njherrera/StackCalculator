@@ -59,5 +59,41 @@ namespace UnitTests
 
             Assert.AreEqual(expected, InfixToPostfixConverted);
         }
+
+        [TestMethod]
+        public void TestPostfixCalculatorSimple()
+        {
+            string input = "3 * -2";
+
+            string InfixToPostfixConverted = InfixToPostfix.ConvertToPostfix(InfixToPostfix.ConvertParenthesisMultiplication(InfixToPostfix.ConvertNegations(input))).Trim();
+
+            double expected = -6;
+
+            Assert.AreEqual(expected, PostfixCalculator.CalculateFromPostfix(InfixToPostfixConverted));
+        }
+
+        [TestMethod]
+        public void TestPostfixCalculatorComplex()
+        {
+            string input = "3 * -2 + (6^2)";
+
+            string InfixToPostfixConverted = InfixToPostfix.ConvertToPostfix(InfixToPostfix.ConvertParenthesisMultiplication(InfixToPostfix.ConvertNegations(input))).Trim();
+
+            double expected = 30;
+
+            Assert.AreEqual(expected, PostfixCalculator.CalculateFromPostfix(InfixToPostfixConverted));
+        }
+
+        [TestMethod]
+        public void TestPostfixCalculatorParenthesesMultiplication()
+        {
+            string input = "3 * -2 + (6^2) + 5(2)";
+
+            string InfixToPostfixConverted = InfixToPostfix.ConvertToPostfix(InfixToPostfix.ConvertParenthesisMultiplication(InfixToPostfix.ConvertNegations(input))).Trim();
+
+            double expected = 40;
+
+            Assert.AreEqual(expected, PostfixCalculator.CalculateFromPostfix(InfixToPostfixConverted));
+        }
     }
 }
